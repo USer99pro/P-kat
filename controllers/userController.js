@@ -36,3 +36,25 @@ exports.gifts = (req,res,next)=>{
     })
 }
 //ตอบกลับด้วย json
+
+exports.findStdById = async (req , res , next)=> {
+
+try {
+    const { id } = req.params;
+
+    const std = await STUDENT.find(id)
+
+    if(!std){
+        throw new Error('ไม่พบนักศึกษารหัสนี้')
+    }
+
+    res.status(200).json({
+        data: std
+    })
+} catch (error){
+    res.status(400).json({
+        error:'เกิดข้อผิดพลาด:'+ error.message
+    })
+}
+
+}
